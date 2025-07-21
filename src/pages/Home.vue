@@ -1,34 +1,31 @@
 <script setup>
     import meWithHat from "@/assets/me_with_hat_cartoon_version.jpeg"
+    import { codes } from "@/utils/routes";
 
     const codings = [
         {
             level: 'easy', 
-            desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam ratione quis fugit corporis perspiciatis quod nam mollitia totam? Nulla, tempore?',
+            desc: 'Saat pertama kali bertemu dengan VueJs atau ReactJs, menghasilkan baris code yang pastinya berantakan, tapi tetap berfungsi',
             tool: 'VueJs / ReactJs'
         },
         {
             level: 'medium', 
-            desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam ratione quis fugit corporis perspiciatis quod nam mollitia totam? Nulla, tempore?',
-            tool: 'VueJs / ReactJs - Chace / Local Storage'
+            desc: 'Naik kelas disaat sudah merasa bisa, tapi saya coba dengan menyimpan hasilnya di cache atau local storage, agar dapat dikenang',
+            tool: 'VueJs / ReactJs - Cache / Local Storage'
         },
         {
             level: 'hard', 
-            desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam ratione quis fugit corporis perspiciatis quod nam mollitia totam? Nulla, tempore?',
-            tool: 'NuxtJs / NextJs - ExpressJs - MySQL - Chace / Local Storage'
+            desc: 'Mungkin ini yang namanya pendewasaan, saya mencoba yang terbaik dengan naik level dan menjadi lebih mudah serta lebih baik',
+            tool: 'NuxtJs / NextJs - ExpressJs - MySQL - Cache / Local Storage'
         },
         {
             level: 'expert', 
-            desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam ratione quis fugit corporis perspiciatis quod nam mollitia totam? Nulla, tempore?',
-            tool: 'VueJs / ReactJs - Chace / Local Storage - Springboot - MySQL'
+            desc: 'Setiap langkah akan menjadi lebih sulit, tapi semuanya akan lebih mudah jika melangkah setiap hari',
+            tool: 'NuxtJs / NextJs - Cache / Local Storage - Springboot - MySQL'
         },
     ]
 
-    const projects = [
-        {level: 'easy', name: 'calculator', createdAt: new Date(2025, 7, 16), isDone: new Date(2025, 7, 17), href: '/easy/calculator'},
-        {level: 'easy', name: 'todo', createdAt: new Date(2025, 7, 17), isDone: 'on progress', href: '/easy/todo'},
-        {level: 'easy', name: 'expense tracker', createdAt: new Date(2025, 7, 17), isDone: 'on progress', href: '/easy/expense_tracker'}
-    ]
+    const projects = codes()
 
     const countLevelProject = (level) => {
         const filterProjects = projects.filter(item => item.level == level);
@@ -62,19 +59,19 @@
             </h1>
             <p>by Kurniawan Pratama</p>
         </section>
-        <section v-for="(item, key) in codings" :key="key" :class="['card', item.level]">
+        <a v-for="(item, key) in codings" :key="key" :class="['card', item.level]" :href="`/${item.level}`">
             <div>
                 <h2 :class="'cl-'+item.level">{{ item.level }} Coding</h2>
                 <span>{{ countLevelProject(item.level) }} Projects</span>
             </div>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam ratione quis fugit corporis perspiciatis quod nam mollitia totam? Nulla, tempore?</p>
+            <p>{{ item.desc }}</p>
             <p>Tool : {{ item.tool }}</p>
-        </section>
+        </a>
         <section class="tracker">
             <h3>Project Tracker</h3>
             <ul>
                 <li v-for="({href, level, createdAt, isDone, name}, key) in projects.reverse()" :key :class="['list', level, 'bg-white']">
-                    <a :href>
+                    <a :href="`/${level}/${href}`">
                         <span :class="'cl-'+level">{{ name }}</span>
                         <span>Created at : {{ convertDate(createdAt) }}</span>
                         <span>is Done : {{ convertIsDone(isDone) }}</span>
@@ -141,29 +138,31 @@
         rgba(255, 255, 255, .1));
         border-left: 5px;
         border-style: solid;
+        text-decoration: none;
+        color: black;
     }
 
-    section.card div {
+    a.card div {
         display: flex;
         align-items: center;
         font-size: .8rem;
     }
 
-    section.card h2 {
+    a.card h2 {
         font-size: 1.1rem;
         font-weight: bold;
     }
 
-    section.card span {
+    a.card span {
         margin-left: auto;
         padding-right: 10px;
     }
 
-    section.card p:nth-of-type(1) {
+    a.card p:nth-of-type(1) {
         font-size: .9rem;
     }
 
-    section.card p:nth-of-type(2) {
+    a.card p:nth-of-type(2) {
         margin-top: auto;
         border-color: rgba(0, 0, 0, .5);
         border-width: 1px 0px 0px 0px;

@@ -5,8 +5,8 @@
   import Home from '@/pages/Home.vue';
   import NotFound from '@/pages/NotFound.vue';
   import Calculator from './pages/easy/Calculator.vue';
-import Todo from './pages/easy/Todo.vue';
-import ExpenseTracker from './pages/easy/ExpenseTracker.vue';
+  import Todo from './pages/easy/Todo.vue';
+  import ExpenseTracker from './pages/easy/ExpenseTracker.vue';
 
 
   const routes = {
